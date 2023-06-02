@@ -13,9 +13,10 @@ func main() {
 	os.Mkdir("./uploads", os.ModePerm)
 
 	http.HandleFunc("/upload", uploadFileHandler)
-	http.HandleFunc("/list", listFilesHandler)
 	http.HandleFunc("/getHash", getHashHandler)
 	http.HandleFunc("/deletefile", deleteSpecifiedFileHandler)
+	http.HandleFunc("/list", listFilesHandler)
+	http.HandleFunc("/wordcount", wordCountHandler)
 	
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
