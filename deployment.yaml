@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: go-http-server
+  name: filestore-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: go-http-server
+      app: filestore-server
   template:
     metadata:
       labels:
-        app: go-http-server
+        app: filestore-server
     spec:
       containers:
       - name: go-http-server
-        image: filestore-server   # Replace with your actual Docker image
+        image: ayushsatyam146/filestore-server  
         ports:
-        - containerPort: 8080      # Replace with the port your Go HTTP server listens on
+        - containerPort: 8080     
