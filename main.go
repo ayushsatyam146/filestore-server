@@ -14,6 +14,8 @@ func main() {
 
 	http.HandleFunc("/upload", uploadFileHandler)
 	http.HandleFunc("/list", listFilesHandler)
+	http.HandleFunc("/getHash", getHashHandler)
+	http.HandleFunc("/deletefile", deleteSpecifiedFileHandler)
 	
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
