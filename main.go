@@ -11,7 +11,8 @@ var FileHash = make(map[string][]string)
 
 func main() {
 	os.Mkdir("./uploads", os.ModePerm)
-	
+
+	http.HandleFunc("/upload", uploadFileHandler)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		fmt.Println(err)
