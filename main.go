@@ -13,6 +13,8 @@ func main() {
 	os.Mkdir("./uploads", os.ModePerm)
 
 	http.HandleFunc("/upload", uploadFileHandler)
+	http.HandleFunc("/list", listFilesHandler)
+	
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		fmt.Println(err)
