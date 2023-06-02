@@ -10,6 +10,7 @@ import (
 var FileHash = make(map[string][]string)
 
 func main() {
+	fmt.Println("Server is running on port 8080.")
 	os.Mkdir("./uploads", os.ModePerm)
 
 	http.HandleFunc("/upload", uploadFileHandler)
@@ -23,6 +24,5 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("Server is running on port 8080.")
 
 }
