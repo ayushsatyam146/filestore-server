@@ -1,0 +1,1 @@
+go run main.go upload.go hash.go delete.go list.go wc.go
