@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"sort"
-	"strconv"
 	"strings"
 	"sync"
 )
@@ -20,31 +18,16 @@ type WordCount struct {
 
 func wordCountHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		sortOrder := r.FormValue("sortOrder")
-		limit := r.FormValue("limit")
-		searchTopWords(w, r, sortOrder, limit)
+		searchAllWords(w, r)
 	} else {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 
-func searchTopWords(w http.ResponseWriter, r *http.Request, sortOrder string, limit string) {
+func searchAllWords(w http.ResponseWriter, r *http.Request) {
 	files, err := ioutil.ReadDir("./uploads")
 	if err != nil {
 		return
-	}
-
-	sortDescending := true
-	maxWords := 10
-
-	if sortOrder == "asc" {
-		sortDescending = false
-	}
-	if limit != "" {
-		value, err := strconv.Atoi(limit)
-		if err == nil && value > 0 {
-			maxWords = value
-		}
 	}
 
 	wordCounts := make(map[string]int)
@@ -90,16 +73,10 @@ func searchTopWords(w http.ResponseWriter, r *http.Request, sortOrder string, li
 		topWords = append(topWords, WordCount{Word: word, Count: count})
 	}
 
-	sort.Slice(topWords, func(i, j int) bool {
-		if sortDescending {
-			return topWords[i].Count > topWords[j].Count
-		}
-		return topWords[i].Count < topWords[j].Count
-	})
-
-	if len(topWords) > maxWords {
-		topWords = topWords[:maxWords]
+	totalWordCount := 0
+	for _, wordCount := range topWords {
+		totalWordCount += wordCount.Count
 	}
-
-	fmt.Fprint(w, topWords)
+	message := fmt.Sprintf("Total word count: %d\n", totalWordCount)
+	fmt.Fprint(w, message)
 }

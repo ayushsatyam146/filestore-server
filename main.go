@@ -17,6 +17,7 @@ func main() {
 	http.HandleFunc("/deletefile", deleteSpecifiedFileHandler)
 	http.HandleFunc("/list", listFilesHandler)
 	http.HandleFunc("/wordcount", wordCountHandler)
+	http.HandleFunc("/frequentWords", freqWordsHandler)
 	
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
