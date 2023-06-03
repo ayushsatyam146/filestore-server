@@ -18,4 +18,12 @@ A HTTP file server with multiple available commands. This CLI acts as a client w
 ```docker run -e PORT=8080 -p 8080:8080 ayushsatyam146/filestore-server```
 ### This will pull image from docker hub and run the container
 
-In all the cases you will be able to access the server at http://localhost:8080
+### In all the cases you will be able to access the server at http://localhost:8080
+---
+### Kubernetes manifest file are also present here. You can easily run the container image on a local or managed k8s cluster. Just run the following commands in a suitable environment
+- ```kubectl create -f deployment.yaml```
+- ```kubectl create -f services.yaml```
+- Run ```kubectl get svc``` to check if ```filestore-server``` service is running and note the NodePort
+- Run ```minikube ip``` to get the IP
+- You can access the server at ```minikube-ip:nodePort ```
+
