@@ -21,14 +21,6 @@ func calculateFileHash(filePath string) (string, error) {
 	return hash, nil
 }
 
-func processMap(input map[string]bool) map[string]bool {
-	output := make(map[string]bool)
-	for key, value := range input {
-		output[key] = value
-	}
-	return output
-}
-
 func getHashHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		getIsFileHashed(w, r)
@@ -50,8 +42,7 @@ func getIsFileHashed(w http.ResponseWriter, r *http.Request) {
 		_, ok := FileHash[value]
 		output[key] = ok
 	}
-	finalOutput := processMap(output)
-	response, err := json.Marshal(finalOutput)
+	response, err := json.Marshal(output)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
